@@ -3,288 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google: 영향력, 수익, 규제</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>구글 심층 분석: 이익 구조, 규제 리스크 및 시장 전망</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 20px;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
         h1, h2, h3 {
-            border-bottom: 2px solid #eee;
+            color: #1a73e8; /* Google Blue */
+            border-bottom: 2px solid #f0f0f0;
             padding-bottom: 10px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
         h1 {
             text-align: center;
             font-size: 2.5em;
-            color: #4285F4; /* Google Blue */
+            margin-bottom: 30px;
         }
-        h2 {
-            font-size: 1.8em;
-            color: #34A853; /* Google Green */
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
-        h3 {
-             font-size: 1.3em;
-             border-bottom: none;
-             margin-top: 30px;
-             color: #EA4335; /* Google Red */
+        .chart {
+            width: 45%;
+            min-width: 300px;
+            margin-bottom: 20px;
         }
-        .container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            margin-top: 30px;
+        .bar-wrapper {
+            margin-bottom: 15px;
         }
-        @media (min-width: 768px) {
-            .container {
-                grid-template-columns: 1fr 1fr;
-            }
+        .bar-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
         }
-        .card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .bar {
+            height: 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+            background-size: 40px 40px;
+            animation: move 2s linear infinite;
         }
-        ul {
-            list-style-type: none;
-            padding-left: 0;
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
         }
-        li {
-            background-color: #f1f3f4;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 4px;
+        .revenue-bar { background-color: #4285F4; } /* Google Blue */
+        .profit-bar { background-color: #34A853; } /* Google Green */
+        .risk-bar {
+            display: flex;
         }
-        li strong {
-            color: #1a73e8;
+        .stable-portion {
+            height: 100%;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
+        .risk-portion {
+            background-color: #EA4335; /* Google Red */
+            height: 100%;
+            border-radius: 0 5px 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 2px solid white;
+        }
+        .bar-text {
+            padding: 0 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .risk-text {
+            font-size: 0.9em;
+            color: #EA4335;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
         th, td {
-            border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
         }
         th {
             background-color: #f2f2f2;
         }
-        .treemap {
-            width: 100%;
-            border: 1px solid #ddd;
-            background: #fff;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 8px;
+        .importance-high { background-color: #fdd; } /* Red */
+        .importance-medium { background-color: #fff0dd; } /* Orange */
+        .importance-low { background-color: #e6ffed; } /* Green */
+
+        blockquote {
+            border-left: 5px solid #1a73e8;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            font-style: italic;
         }
-        .treemap-row {
-            display: flex;
-            margin-bottom: 4px;
-        }
-        .treemap-cell {
-            padding: 20px 10px;
-            color: white;
+        blockquote footer {
+            text-align: right;
+            font-style: normal;
             font-weight: bold;
-            text-align: center;
-            flex-grow: 1;
-            transition: all 0.3s ease;
+            margin-top: 10px;
         }
-        .treemap-cell:hover {
-            opacity: 0.8;
-            transform: scale(1.02);
+        footer.page-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
-    <h1>Google: 영향력, 수익, 규제</h1>
-    <p style="text-align: center; color: #5f6368;">구글의 정치적 영향력, 핵심 수익 모델, 그리고 전 세계적인 반독점 규제 현황을 간결하게 정리했습니다.</p>
-
-    <h2>1. 정치적 영향력 및 로비</h2>
     <div class="container">
-        <div class="card">
-            <h3>주요 로비 활동 분야</h3>
-            <ul>
-                <li><strong>반독점 규제 완화:</strong> 검색, 광고, 앱스토어 시장 지배력 방어</li>
-                <li><strong>데이터 프라이버시:</strong> 개인정보보호 규제(GDPR, CCPA 등) 관련 자사 입장 반영</li>
-                <li><strong>AI 및 신기술:</strong> 인공지능 윤리, 자율주행 등 신사업 관련 규제 환경 조성</li>
-                <li><strong>콘텐츠 규제:</strong> 온라인 플랫폼의 콘텐츠 책임 관련 법안 대응</li>
-                <li><strong>국제 무역 및 세금:</strong> 디지털세 등 국제 조세 문제 및 무역 장벽 해소</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>연도별 로비 지출 (미국)</h3>
-            <canvas id="lobbyingChart"></canvas>
-            <p style="font-size: 0.8em; text-align: center; color: #666;">* 출처: OpenSecrets.org 등 공개된 데이터를 기반으로 한 추정치</p>
-        </div>
-    </div>
+        <h1>구글 심층 분석: 이익 구조, 규제 리스크 및 시장 전망</h1>
 
-    <h2>2. 수익 및 반독점 규제</h2>
-    
-    <div class="card">
-        <h3>알파벳(구글 모회사) 수익 구조 (2023년 기준)</h3>
-        <p>구글의 수익은 대부분 광고에서 발생하며, 검색 광고가 핵심입니다.</p>
-        <canvas id="revenueChart" style="margin-top:20px;"></canvas>
-    </div>
-
-    <div class="card" style="margin-top:40px;">
-        <h3>글로벌 반독점 규제 현황 (Treemap)</h3>
-        <p>주요 규제 당국이 문제 삼는 구글의 사업 분야를 트리맵으로 시각화했습니다. 영역의 크기는 해당 분야에 대한 규제 압박의 강도와 빈도를 나타냅니다.</p>
-        <div class="treemap">
-            <div class="treemap-row" style="height: 200px;">
-                <div class="treemap-cell" style="background-color: #4285F4; flex-basis: 50%;">
-                    <h4>검색 (Search)</h4>
-                    <p style="font-size:0.9em; font-weight:normal;">자사 서비스 우대<br>경쟁사 배제</p>
-                </div>
-                <div style="display: flex; flex-direction: column; flex-basis: 50%;">
-                     <div class="treemap-cell" style="background-color: #EA4335; flex-basis: 60%;">
-                        <h4>광고 (Ads)</h4>
-                         <p style="font-size:0.9em; font-weight:normal;">광고 기술 시장 독점</p>
+        <section id="profit-structure">
+            <h2>1. 구글 이익 구조 (매출 및 순이익)</h2>
+            <p>구글의 재무 구조는 핵심 사업인 광고에 깊이 의존하고 있습니다. 매출의 대부분이 검색, YouTube, 광고 네트워크에서 발생하며, 이는 높은 영업이익률로 이어져 순이익의 절대적인 비중을 차지합니다.</p>
+            <div class="chart-container">
+                <div class="chart">
+                    <h3>매출 구조</h3>
+                    <div class="bar-wrapper">
+                        <div class="bar-label">Google 검색 및 기타 (57.8%)</div>
+                        <div class="bar revenue-bar" style="width: 100%;"></div>
                     </div>
-                     <div class="treemap-cell" style="background-color: #FBBC05; flex-basis: 40%; color:#333;">
-                        <h4>안드로이드 OS</h4>
-                         <p style="font-size:0.9em; font-weight:normal;">자사 앱 선탑재 강요</p>
+                    <div class="bar-wrapper">
+                        <div class="bar-label">YouTube 광고 (7.7%)</div>
+                        <div class="bar revenue-bar" style="width: 13.3%;"></div>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar-label">Google 네트워크 (8.0%)</div>
+                        <div class="bar revenue-bar" style="width: 13.8%;"></div>
+                    </div>
+                     <div class="bar-wrapper">
+                        <div class="bar-label">Google 기타 (클라우드, 하드웨어 등) (8.0%)</div>
+                        <div class="bar revenue-bar" style="width: 13.8%;"></div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <h3>순이익 구조 (영업이익 기반 추정)</h3>
+                     <div class="bar-wrapper">
+                        <div class="bar-label">Google Services (광고, Android 등) (약 85-90%)</div>
+                        <div class="bar profit-bar" style="width: 90%;"></div>
+                    </div>
+                     <div class="bar-wrapper">
+                        <div class="bar-label">Google Cloud (약 5-10%)</div>
+                        <div class="bar profit-bar" style="width: 10%;"></div>
+                    </div>
+                     <div class="bar-wrapper">
+                        <div class="bar-label">Other Bets (손실 기록)</div>
+                        <div class="bar" style="width: 2%; background-color: #777;"></div>
                     </div>
                 </div>
             </div>
-            <div class="treemap-row" style="height: 120px;">
-                <div class="treemap-cell" style="background-color: #34A853; flex-basis: 35%;">
-                    <h4>앱스토어 (Play Store)</h4>
-                    <p style="font-size:0.9em; font-weight:normal;">인앱결제 강제</p>
+        </section>
+
+        <section id="regulatory-risk">
+            <h2>2. 독과점 규제로 인한 잠재적 손실</h2>
+            <p>정부의 독과점 규제는 구글의 핵심 수익원에 직접적인 위협이 됩니다. 특히 검색 광고 계약과 광고 기술 시장에서의 지배력이 주된 타겟이며, 규제 강도에 따라 상당한 규모의 매출 및 순이익 손실이 발생할 수 있습니다.</p>
+            <div class="chart-container">
+                 <div class="chart">
+                    <h3>규제 리스크가 반영된 매출 구조</h3>
+                    <div class="bar-wrapper">
+                        <div class="bar-label">Google 검색 및 기타</div>
+                        <div class="bar risk-bar" style="width: 100%;">
+                            <div class="stable-portion revenue-bar" style="width: 80%;"><span class="bar-text">안정적</span></div>
+                            <div class="risk-portion" style="width: 20%;"><span class="bar-text">규제 영향권</span></div>
+                        </div>
+                        <div class="risk-text">▲ 검색 계약 변경 시 관련 매출의 10-20% 리스크 노출 가능성</div>
+                    </div>
+                     <div class="bar-wrapper">
+                        <div class="bar-label">Google 네트워크</div>
+                        <div class="bar risk-bar" style="width: 40%;">
+                            <div class="stable-portion revenue-bar" style="width: 70%;"><span class="bar-text">안정적</span></div>
+                            <div class="risk-portion" style="width: 30%;"><span class="bar-text">규제 영향권</span></div>
+                        </div>
+                         <div class="risk-text">▲ 광고 기술 독점 규제 시 수수료 모델 변경 압박</div>
+                    </div>
                 </div>
-                <div class="treemap-cell" style="background-color: #5F6368; flex-basis: 65%;">
-                    <h4>기타</h4>
-                    <p style="font-size:0.9em; font-weight:normal;">유튜브, 클라우드, 뉴스 등<br>시장 지배력 남용 의혹</p>
+                <div class="chart">
+                    <h3>규제 리스크가 반영된 순이익 구조</h3>
+                     <div class="bar-wrapper">
+                        <div class="bar-label">벌금 및 소송 비용</div>
+                         <div class="bar risk-bar" style="width: 100%;">
+                            <div class="stable-portion profit-bar" style="width: 95%;"><span class="bar-text">기존 순이익</span></div>
+                            <div class="risk-portion" style="width: 5%;"><span class="bar-text">벌금</span></div>
+                        </div>
+                        <div class="risk-text">▲ EU 등에서 부과된 수십억 유로의 과징금은 순이익 직접 감소 요인</div>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar-label">사업 구조 변경 리스크</div>
+                         <div class="bar risk-bar" style="width: 100%;">
+                             <div class="stable-portion profit-bar" style="width: 100%;"><span class="bar-text">현행 유지</span></div>
+                         </div>
+                         <div class="risk-text">▲ 최악의 경우, 광고 기술 등 핵심 사업부 분할 명령 시 수익성 근본적 훼손</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="card" style="margin-top:40px;">
-        <h3>주요 국가별 반독점 규제 사례</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>규제 기관</th>
-                    <th>주요 쟁점</th>
-                    <th>결과 (예시)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>미국 법무부 (DOJ)</strong></td>
-                    <td>검색 및 광고 시장 독점</td>
-                    <td>소송 진행 중 (2020년~)</td>
-                </tr>
-                <tr>
-                    <td><strong>유럽연합 집행위원회 (EC)</strong></td>
-                    <td>쇼핑 검색, 안드로이드, 광고(AdSense)</td>
-                    <td>수십억 유로의 과징금 부과</td>
-                </tr>
-                <tr>
-                    <td><strong>대한민국 공정거래위원회</strong></td>
-                    <td>안드로이드 OS 파편화 금지, 인앱결제</td>
-                    <td>과징금 부과 및 시정명령</td>
-                </tr>
-                 <tr>
-                    <td><strong>영국 경쟁시장청 (CMA)</strong></td>
-                    <td>모바일 브라우저 및 클라우드 게이밍</td>
-                    <td>시장 조사 및 심층 조사 진행</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        </section>
 
-    <script>
-        // 로비 지출 차트
-        const lobbyingCtx = document.getElementById('lobbyingChart').getContext('2d');
-        new Chart(lobbyingCtx, {
-            type: 'bar',
-            data: {
-                labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
-                datasets: [{
-                    label: '로비 지출액 (백만 달러)',
-                    data: [21.7, 12.7, 7.5, 9.6, 13.1, 10.9], // 예시 데이터
-                    backgroundColor: 'rgba(52, 168, 83, 0.6)',
-                    borderColor: 'rgba(52, 168, 83, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value + 'M';
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return ' 지출액: $' + context.parsed.y + 'M';
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        <section id="history">
+            <h2>3. 독과점 규제 히스토리 및 향후 일정</h2>
+            <p>구글에 대한 반독점 규제는 유럽에서 시작되어 현재는 본토인 미국에서 가장 큰 법적 분쟁에 직면해 있습니다. 향후 몇 년간 이어질 법원 판결은 구글의 미래를 결정할 중대 변수입니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>기관/국가</th>
+                        <th>주요 내용</th>
+                        <th>중요도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="importance-high">
+                        <td><strong>2024년 9월 (예정)</strong></td>
+                        <td>미국 법무부 (DOJ)</td>
+                        <td><strong>디지털 광고 독점 관련 2차 재판 시작 예정. 구글 광고 기술 사업의 핵심을 다룸.</strong></td>
+                        <td>매우 높음</td>
+                    </tr>
+                    <tr class="importance-high">
+                        <td>2024년 5월</td>
+                        <td>미국 법무부 (DOJ)</td>
+                        <td>검색 엔진 반독점 소송의 최종 변론 진행. 판결 대기 중.</td>
+                        <td>매우 높음</td>
+                    </tr>
+                    <tr class="importance-high">
+                        <td>2023년 9월</td>
+                        <td>미국 법무부 (DOJ)</td>
+                        <td>검색 엔진 반독점 소송 1차 재판 시작. '세기의 재판'으로 불림.</td>
+                        <td>매우 높음</td>
+                    </tr>
+                    <tr class="importance-medium">
+                        <td>2023년 6월</td>
+                        <td>유럽연합 (EU)</td>
+                        <td>광고 기술(Adtech) 사업의 독점적 지위에 대한 반독점 소송 제기.</td>
+                        <td>높음</td>
+                    </tr>
+                     <tr class="importance-medium">
+                        <td>2020년 10월</td>
+                        <td>미국 법무부 (DOJ)</td>
+                        <td>검색 및 검색 광고 시장 독점 혐의로 구글을 공식 제소하며 현재 소송의 시작.</td>
+                        <td>높음</td>
+                    </tr>
+                    <tr class="importance-low">
+                        <td>2019년 3월</td>
+                        <td>유럽연합 (EU)</td>
+                        <td>애드센스(AdSense) 광고 계약 관련 반독점법 위반으로 14.9억 유로 과징금 부과.</td>
+                        <td>보통</td>
+                    </tr>
+                    <tr class="importance-low">
+                        <td>2018년 7월</td>
+                        <td>유럽연합 (EU)</td>
+                        <td>안드로이드 OS의 시장 지배력 남용 혐의로 43.4억 유로 과징금 부과.</td>
+                        <td>보통</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-        // 수익 구조 차트
-        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        new Chart(revenueCtx, {
-            type: 'pie',
-            data: {
-                labels: ['구글 검색 및 기타', '유튜브 광고', '구글 네트워크', '구글 클라우드', '기타 수익'],
-                datasets: [{
-                    data: [175, 31.5, 32.7, 34.7, 33.9], // 2023년 데이터 기반 (단위: 10억 달러)
-                    backgroundColor: [
-                        '#4285F4', // 검색 (파랑)
-                        '#EA4335', // 유튜브 (빨강)
-                        '#FBBC05', // 네트워크 (노랑)
-                        '#34A853', // 클라우드 (초록)
-                        '#9E9E9E'  // 기타 (회색)
-                    ],
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                         callbacks: {
-                            label: function(context) {
-                                let label = context.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed !== null) {
-                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(context.parsed * 1000000000);
-                                }
-                                return label;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
+        <section id="wall-street-commentary">
+            <h2>4. 월가 코멘트 및 향후 전망</h2>
+            <p>월가 애널리스트들은 구글의 AI 기술 리더십과 클라우드 사업의 성장을 높이 평가하면서도, 규제 리스크를 가장 큰 변수로 지목하며 신중한 입장을 보이고 있습니다.</p>
+            
+            <blockquote>
+                <p>"최악의 시나리오인 사업 분할 가능성은 낮다고 본다. 현실적으로는 사업 관행의 변화나 추가적인 벌금 부과 수준에서 마무리될 가능성이 높다."</p>
+                <footer>- Wedbush Securities (2024년)</footer>
+            </blockquote>
+
+            <blockquote>
+                <p>"미국 법무부와의 소송 결과는 구글의 핵심 비즈니스 모델을 근본적으로 바꿀 수 있는 중대한 기로에 서 있음을 의미한다. 결과에 따라 시장의 판도가 바뀔 수 있다."</p>
+                <footer>- Bank of America (2024년)</footer>
+            </blockquote>
+             <blockquote>
+                <p>"규제 리스크는 이미 주가에 상당 부분 선반영되었다. 만약 소송 결과가 시장의 우려보다 긍정적일 경우, 불확실성 해소로 인해 오히려 주가가 강하게 반등할 수 있다."</p>
+                <footer>- Evercore ISI (2023년 말)</footer>
+            </blockquote>
+        </section>
+
+        <footer class="page-footer">
+            <p>본 자료는 공개된 정보를 바탕으로 작성되었으며, 투자 추천을 목적으로 하지 않습니다.<br> 최종 업데이트: 2025년 6월 13일</p>
+        </footer>
+    </div>
 
 </body>
 </html>
