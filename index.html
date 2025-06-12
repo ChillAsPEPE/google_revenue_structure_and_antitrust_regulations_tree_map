@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알파벳 수익 구조 및 반독점 규제 트리 맵</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3/dist/chartjs-chart-treemap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #treemap {
+            max-width: 1000px;
+            width: 100%;
+            height: 600px;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>알파벳(구글) 2024년 1분기 수익 구조 및 반독점 규제 현황</h1>
+    <canvas id="treemap"></canvas>
+    <div class="legend">
+        <div class="legend-item"><span class="legend-color" style="background-color: #ff4d4d;"></span>높은 반독점 리스크</div>
+        <div class="legend-item"><span class="legend-color" style="background-color: #ffcc00;"></span>중간 반독점 리스크</div>
+        <div class="legend-item"><span class="legend-color" style="background-color: #4CAF50;"></span>낮은 반독점 리스크</div>
+    </div>
+
+    <script>
+        // Register the treemap plugin
+        Chart.register(ChartTreemap);
+
+        const ctx = document.getElementById('treemap').getContext('2d');
+        new Chart(ctx, {
+            type: 'treemap',
+            data: {
+                datasets: [{
+                    label: '알파벳 수익 구조',
+                    tree: [
+                        {
+                            name: '구글 검색 및 기타',
+                            value: 461.56, // 억 달러
+                            revenueShare: '57.3%',
+                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
+                            antitrustStatus: '미국 DOJ 소송: 검색 독점 불법 판결 (2024.8). 배타적 계약 문제. 시정 조치: 크롬 매각, 계약 금지 제안. EU 지속 조사 중.',
+                            riskLevel: '높음',
+                            color: '#ff4d4d'
+                        },
+                        {
+                            name: '유튜브 광고',
+                            value: 80.90,
+                            revenueShare: '10.0%',
+                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
+                            antitrustStatus: '직접적 제재 없음. 광고 기술 연계로 간접 리스크. 투명성 강화 필요.',
+                            riskLevel: '중간',
+                            color: '#ffcc00'
+                        },
+                        {
+                            name: '구글 네트워크',
+                            value: 74.13,
+                            revenueShare: '9.2%',
+                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
+                            antitrustStatus: '미국 DOJ: 광고 기술 독점 위법 판결 (2025.4). EU: 광고 기술 매각 요구 가능성.',
+                            riskLevel: '높음',
+                            color: '#ff4d4d'
+                        },
+                        {
+                            name: '구글 구독, 플랫폼, 기기',
+                            value: 87.39,
+                            revenueShare: '10.9%',
+                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
+                            antitrustStatus: '플레이 스토어: 미국 7억 달러 합의 (2023.12). 안드로이드, 크롬: EU 과징금, DOJ 매각 제안.',
+                            riskLevel: '중간',
+                            color: '#ffcc00'
+                        },
+                        {
+                            name: '구글 클라우드',
+                            value: 95.74,
+                            revenueShare: '11.9%',
+                            operatingIncome: '9억 달러',
+                            antitrustStatus: '직접 제재 없음. 시장 점유율 확대 시 끼워팔기, 라이선스 문제로 조사 가능.',
+                            riskLevel: '낮음',
+                            color: '#4CAF50'
+                        },
+                        {
+                            name: '기타 투자',
+                            value: 4.95,
+                            revenueShare: '0.6%',
+                            operatingIncome: '-10.2억 달러',
+                            antitrustStatus: '초기 단계로 직접 제재 없음. 미래 지배력 확보 시 조사 가능.',
+                            riskLevel: '낮음',
+                            color: '#4CAF50'
+                        },
+                        {
+                            name: '헤징 손익',
+                            value: 0.72,
+                            revenueShare: '0.1%',
+                            operatingIncome: '해당 없음',
+                            antitrustStatus: '금융 손익으로 규제 대상 아님.',
+                            riskLevel: '낮음',
+                            color: '#4CAF50'
+                        }
+                    ],
+                    key: 'value',
+                    groups: ['name'],
+                    backgroundColor: (ctx) => ctx.raw ? ctx.raw.color : '#ffffff',
+                    borderColor: '#ffffff',
+                    borderWidth: 1,
+                    spacing: 1,
+                    labels: {
+                        display: true,
+                        align: 'center',
+                        position: 'middle',
+                        color: '#000000',
+                        font: { size: 12, weight: 'bold' },
+                        formatter: (ctx) => ctx.raw.name
+                    }
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const data = context.raw;
+                                return [
+                                    `부문: ${data.name}`,
+                                    `매출: ${data.value}억 달러 (${data.revenueShare})`,
+                                    `영업이익: ${data.operatingIncome}`,
+                                    `반독점 현황: ${data.antitrustStatus}`,
+                                    `리스크 수준: ${data.riskLevel}`
+                                ];
+                            }
+                        }
+                    },
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
