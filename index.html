@@ -3,168 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알파벳 수익 구조 및 반독점 규제 트리 맵</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3/dist/chartjs-chart-treemap.min.js"></script>
+    <title>Google: 영향력, 수익, 규제</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
         }
         h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2.5em;
+            color: #4285F4; /* Google Blue */
         }
-        #treemap {
-            max-width: 1000px;
+        h2 {
+            font-size: 1.8em;
+            color: #34A853; /* Google Green */
+        }
+        h3 {
+             font-size: 1.3em;
+             border-bottom: none;
+             margin-top: 30px;
+             color: #EA4335; /* Google Red */
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            background-color: #f1f3f4;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        li strong {
+            color: #1a73e8;
+        }
+        table {
             width: 100%;
-            height: 600px;
-        }
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            border-collapse: collapse;
             margin-top: 20px;
         }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
         }
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
+        th {
+            background-color: #f2f2f2;
+        }
+        .treemap {
+            width: 100%;
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .treemap-row {
+            display: flex;
+            margin-bottom: 4px;
+        }
+        .treemap-cell {
+            padding: 20px 10px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+            transition: all 0.3s ease;
+        }
+        .treemap-cell:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
         }
     </style>
 </head>
 <body>
-    <h1>알파벳(구글) 2024년 1분기 수익 구조 및 반독점 규제 현황</h1>
-    <canvas id="treemap"></canvas>
-    <div class="legend">
-        <div class="legend-item"><span class="legend-color" style="background-color: #ff4d4d;"></span>높은 반독점 리스크</div>
-        <div class="legend-item"><span class="legend-color" style="background-color: #ffcc00;"></span>중간 반독점 리스크</div>
-        <div class="legend-item"><span class="legend-color" style="background-color: #4CAF50;"></span>낮은 반독점 리스크</div>
+
+    <h1>Google: 영향력, 수익, 규제</h1>
+    <p style="text-align: center; color: #5f6368;">구글의 정치적 영향력, 핵심 수익 모델, 그리고 전 세계적인 반독점 규제 현황을 간결하게 정리했습니다.</p>
+
+    <h2>1. 정치적 영향력 및 로비</h2>
+    <div class="container">
+        <div class="card">
+            <h3>주요 로비 활동 분야</h3>
+            <ul>
+                <li><strong>반독점 규제 완화:</strong> 검색, 광고, 앱스토어 시장 지배력 방어</li>
+                <li><strong>데이터 프라이버시:</strong> 개인정보보호 규제(GDPR, CCPA 등) 관련 자사 입장 반영</li>
+                <li><strong>AI 및 신기술:</strong> 인공지능 윤리, 자율주행 등 신사업 관련 규제 환경 조성</li>
+                <li><strong>콘텐츠 규제:</strong> 온라인 플랫폼의 콘텐츠 책임 관련 법안 대응</li>
+                <li><strong>국제 무역 및 세금:</strong> 디지털세 등 국제 조세 문제 및 무역 장벽 해소</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>연도별 로비 지출 (미국)</h3>
+            <canvas id="lobbyingChart"></canvas>
+            <p style="font-size: 0.8em; text-align: center; color: #666;">* 출처: OpenSecrets.org 등 공개된 데이터를 기반으로 한 추정치</p>
+        </div>
+    </div>
+
+    <h2>2. 수익 및 반독점 규제</h2>
+    
+    <div class="card">
+        <h3>알파벳(구글 모회사) 수익 구조 (2023년 기준)</h3>
+        <p>구글의 수익은 대부분 광고에서 발생하며, 검색 광고가 핵심입니다.</p>
+        <canvas id="revenueChart" style="margin-top:20px;"></canvas>
+    </div>
+
+    <div class="card" style="margin-top:40px;">
+        <h3>글로벌 반독점 규제 현황 (Treemap)</h3>
+        <p>주요 규제 당국이 문제 삼는 구글의 사업 분야를 트리맵으로 시각화했습니다. 영역의 크기는 해당 분야에 대한 규제 압박의 강도와 빈도를 나타냅니다.</p>
+        <div class="treemap">
+            <div class="treemap-row" style="height: 200px;">
+                <div class="treemap-cell" style="background-color: #4285F4; flex-basis: 50%;">
+                    <h4>검색 (Search)</h4>
+                    <p style="font-size:0.9em; font-weight:normal;">자사 서비스 우대<br>경쟁사 배제</p>
+                </div>
+                <div style="display: flex; flex-direction: column; flex-basis: 50%;">
+                     <div class="treemap-cell" style="background-color: #EA4335; flex-basis: 60%;">
+                        <h4>광고 (Ads)</h4>
+                         <p style="font-size:0.9em; font-weight:normal;">광고 기술 시장 독점</p>
+                    </div>
+                     <div class="treemap-cell" style="background-color: #FBBC05; flex-basis: 40%; color:#333;">
+                        <h4>안드로이드 OS</h4>
+                         <p style="font-size:0.9em; font-weight:normal;">자사 앱 선탑재 강요</p>
+                    </div>
+                </div>
+            </div>
+            <div class="treemap-row" style="height: 120px;">
+                <div class="treemap-cell" style="background-color: #34A853; flex-basis: 35%;">
+                    <h4>앱스토어 (Play Store)</h4>
+                    <p style="font-size:0.9em; font-weight:normal;">인앱결제 강제</p>
+                </div>
+                <div class="treemap-cell" style="background-color: #5F6368; flex-basis: 65%;">
+                    <h4>기타</h4>
+                    <p style="font-size:0.9em; font-weight:normal;">유튜브, 클라우드, 뉴스 등<br>시장 지배력 남용 의혹</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card" style="margin-top:40px;">
+        <h3>주요 국가별 반독점 규제 사례</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>규제 기관</th>
+                    <th>주요 쟁점</th>
+                    <th>결과 (예시)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>미국 법무부 (DOJ)</strong></td>
+                    <td>검색 및 광고 시장 독점</td>
+                    <td>소송 진행 중 (2020년~)</td>
+                </tr>
+                <tr>
+                    <td><strong>유럽연합 집행위원회 (EC)</strong></td>
+                    <td>쇼핑 검색, 안드로이드, 광고(AdSense)</td>
+                    <td>수십억 유로의 과징금 부과</td>
+                </tr>
+                <tr>
+                    <td><strong>대한민국 공정거래위원회</strong></td>
+                    <td>안드로이드 OS 파편화 금지, 인앱결제</td>
+                    <td>과징금 부과 및 시정명령</td>
+                </tr>
+                 <tr>
+                    <td><strong>영국 경쟁시장청 (CMA)</strong></td>
+                    <td>모바일 브라우저 및 클라우드 게이밍</td>
+                    <td>시장 조사 및 심층 조사 진행</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script>
-        // Register the treemap plugin
-        Chart.register(ChartTreemap);
-
-        const ctx = document.getElementById('treemap').getContext('2d');
-        new Chart(ctx, {
-            type: 'treemap',
+        // 로비 지출 차트
+        const lobbyingCtx = document.getElementById('lobbyingChart').getContext('2d');
+        new Chart(lobbyingCtx, {
+            type: 'bar',
             data: {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
                 datasets: [{
-                    label: '알파벳 수익 구조',
-                    tree: [
-                        {
-                            name: '구글 검색 및 기타',
-                            value: 461.56, // 억 달러
-                            revenueShare: '57.3%',
-                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
-                            antitrustStatus: '미국 DOJ 소송: 검색 독점 불법 판결 (2024.8). 배타적 계약 문제. 시정 조치: 크롬 매각, 계약 금지 제안. EU 지속 조사 중.',
-                            riskLevel: '높음',
-                            color: '#ff4d4d'
-                        },
-                        {
-                            name: '유튜브 광고',
-                            value: 80.90,
-                            revenueShare: '10.0%',
-                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
-                            antitrustStatus: '직접적 제재 없음. 광고 기술 연계로 간접 리스크. 투명성 강화 필요.',
-                            riskLevel: '중간',
-                            color: '#ffcc00'
-                        },
-                        {
-                            name: '구글 네트워크',
-                            value: 74.13,
-                            revenueShare: '9.2%',
-                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
-                            antitrustStatus: '미국 DOJ: 광고 기술 독점 위법 판결 (2025.4). EU: 광고 기술 매각 요구 가능성.',
-                            riskLevel: '높음',
-                            color: '#ff4d4d'
-                        },
-                        {
-                            name: '구글 구독, 플랫폼, 기기',
-                            value: 87.39,
-                            revenueShare: '10.9%',
-                            operatingIncome: '구글 서비스 내 포함 (278.97억 달러)',
-                            antitrustStatus: '플레이 스토어: 미국 7억 달러 합의 (2023.12). 안드로이드, 크롬: EU 과징금, DOJ 매각 제안.',
-                            riskLevel: '중간',
-                            color: '#ffcc00'
-                        },
-                        {
-                            name: '구글 클라우드',
-                            value: 95.74,
-                            revenueShare: '11.9%',
-                            operatingIncome: '9억 달러',
-                            antitrustStatus: '직접 제재 없음. 시장 점유율 확대 시 끼워팔기, 라이선스 문제로 조사 가능.',
-                            riskLevel: '낮음',
-                            color: '#4CAF50'
-                        },
-                        {
-                            name: '기타 투자',
-                            value: 4.95,
-                            revenueShare: '0.6%',
-                            operatingIncome: '-10.2억 달러',
-                            antitrustStatus: '초기 단계로 직접 제재 없음. 미래 지배력 확보 시 조사 가능.',
-                            riskLevel: '낮음',
-                            color: '#4CAF50'
-                        },
-                        {
-                            name: '헤징 손익',
-                            value: 0.72,
-                            revenueShare: '0.1%',
-                            operatingIncome: '해당 없음',
-                            antitrustStatus: '금융 손익으로 규제 대상 아님.',
-                            riskLevel: '낮음',
-                            color: '#4CAF50'
-                        }
-                    ],
-                    key: 'value',
-                    groups: ['name'],
-                    backgroundColor: (ctx) => ctx.raw ? ctx.raw.color : '#ffffff',
-                    borderColor: '#ffffff',
-                    borderWidth: 1,
-                    spacing: 1,
-                    labels: {
-                        display: true,
-                        align: 'center',
-                        position: 'middle',
-                        color: '#000000',
-                        font: { size: 12, weight: 'bold' },
-                        formatter: (ctx) => ctx.raw.name
-                    }
+                    label: '로비 지출액 (백만 달러)',
+                    data: [21.7, 12.7, 7.5, 9.6, 13.1, 10.9], // 예시 데이터
+                    backgroundColor: 'rgba(52, 168, 83, 0.6)',
+                    borderColor: 'rgba(52, 168, 83, 1)',
+                    borderWidth: 1
                 }]
             },
             options: {
-                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value + 'M';
+                            }
+                        }
+                    }
+                },
                 plugins: {
+                    legend: { display: false },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                const data = context.raw;
-                                return [
-                                    `부문: ${data.name}`,
-                                    `매출: ${data.value}억 달러 (${data.revenueShare})`,
-                                    `영업이익: ${data.operatingIncome}`,
-                                    `반독점 현황: ${data.antitrustStatus}`,
-                                    `리스크 수준: ${data.riskLevel}`
-                                ];
+                                return ' 지출액: $' + context.parsed.y + 'M';
                             }
                         }
+                    }
+                }
+            }
+        });
+
+        // 수익 구조 차트
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'pie',
+            data: {
+                labels: ['구글 검색 및 기타', '유튜브 광고', '구글 네트워크', '구글 클라우드', '기타 수익'],
+                datasets: [{
+                    data: [175, 31.5, 32.7, 34.7, 33.9], // 2023년 데이터 기반 (단위: 10억 달러)
+                    backgroundColor: [
+                        '#4285F4', // 검색 (파랑)
+                        '#EA4335', // 유튜브 (빨강)
+                        '#FBBC05', // 네트워크 (노랑)
+                        '#34A853', // 클라우드 (초록)
+                        '#9E9E9E'  // 기타 (회색)
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
                     },
-                    legend: { display: false }
+                    tooltip: {
+                         callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(context.parsed * 1000000000);
+                                }
+                                return label;
+                            }
+                        }
+                    }
                 }
             }
         });
     </script>
+
 </body>
 </html>
